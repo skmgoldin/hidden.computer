@@ -1,0 +1,22 @@
+.header h1 {
+  color: #67f868;
+  font-size: 4em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+.header h2 {
+  color: #E1E1DD;
+  font-size: 1.5em;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+.header h3 {
+  color: #E1E1DD;
+  font-size: 1.5em;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+.navlink {
+  margin-right: .5em;
+}
+
