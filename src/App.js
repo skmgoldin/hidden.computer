@@ -1,19 +1,19 @@
-import './App.css';
+import "./App.css";
 
-import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
-import Header from './Header.js';
-import About from './About.js';
-import Papers from './Papers.js';
-import Code from './Code.js';
+import Header from "./Header.js";
+import About from "./About.js";
+import Papers from "./Papers.js";
+import Code from "./Code.js";
 
-const Home = () => (<div />);
+const Home = () => <div />;
 
 class App extends Component {
   render() {
     return (
-      <Router >
+      <Router>
         <div>
           <Header />
           <Switch>

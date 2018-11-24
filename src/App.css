@@ -1,16 +1,15 @@
 body {
   background-color: #000000;
   font-family: courier, monospace;
-  color: #E1E1DD;
+  color: #e1e1dd;
 }
 a:link {
   color: #6a76fc;
-  }
+}
 a:visited {
   color: #6a76fc;
 }
 a:hover {
-  color: #BD7218;
+  color: #bd7218;
   text-decoration: underline;
 }
-
