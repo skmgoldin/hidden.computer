@@ -5,11 +5,11 @@ class Papers extends Component {
     return (
       <div className="papers">
         <div>
-          <h1>
+          <h3>
             <a href="https://docs.google.com/document/d/1BWWC__-Kmso9b7yCI_R7ysoGFIT9D_sfjH3axQsmB6E/edit?usp=sharing">
               Token-Curated Registries 1.0
             </a>
-          </h1>
+          </h3>
           <div>
             <p>
               Following the completion of the AdChain whitepaper, the authors
@@ -28,11 +28,11 @@ class Papers extends Component {
           </div>
         </div>
         <div>
-          <h1>
+          <h3>
             <a href="https://docs.google.com/document/d/1CNBjz4oTUTQo2VjRh2jK0VBY5z7GAVPwT8YsVtOv1Ns/edit?usp=sharing">
               Delphi
             </a>
-          </h1>
+          </h3>
           <div>
             <p>
               This very concise paper describes a generalized dispute resolution

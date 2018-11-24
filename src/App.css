@@ -13,3 +13,21 @@ a:hover {
   color: #bd7218;
   text-decoration: underline;
 }
+h1 {
+  color: #67f868;
+  font-size: 4em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+h2 {
+  color: #e1e1dd;
+  font-size: 1.5em;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
+h3 {
+  color: #e1e1dd;
+  font-size: 1.5em;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}

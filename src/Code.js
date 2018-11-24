@@ -5,9 +5,9 @@ class Code extends Component {
     return (
       <div className="code">
         <div>
-          <h1>
+          <h3>
             <a href="http://www.github.com/skmgoldin/tcr">tcr</a>
-          </h1>
+          </h3>
           <div>
             <p>
               A string-keyed token-curated registry. This repo will track
@@ -20,9 +20,9 @@ class Code extends Component {
           </div>
         </div>
         <div>
-          <h1>
+          <h3>
             <a href="http://www.github.com/consensys/plcrvoting">PLCRVoting</a>
-          </h1>
+          </h3>
           <div>
             <p>
               Partial-lock commit/reveal (PLCR) voting was originally described
@@ -36,11 +36,11 @@ class Code extends Component {
           </div>
         </div>
         <div>
-          <h1>
+          <h3>
             <a href="http://www.github.com/skmgoldin/simple-token-sale">
               simple-token-sale
             </a>
-          </h1>
+          </h3>
           <div>
             <p>
               This is a simple fixed-price, finite-supply token sale originally
@@ -52,9 +52,9 @@ class Code extends Component {
           </div>
         </div>
         <div>
-          <h1>
+          <h3>
             <a href="http://www.github.com/consensys/tokens">Tokens</a>
-          </h1>
+          </h3>
           <div>
             <p>
               I became a maintainer of the ConsenSys tokens repo after doing an
@@ -68,9 +68,9 @@ class Code extends Component {
           </div>
         </div>
         <div>
-          <h1>
+          <h3>
             <a href="http://www.github.com/skmgoldin/sol-sdll">sol-sdll</a>
-          </h1>
+          </h3>
           <div>
             <p>
               Data structures on Ethereum are extremely interesting to me

@@ -11,7 +11,7 @@ class About extends Component {
           At Coney Island with{" "}
           <a href="https://www.instagram.com/joann.arosemena/">Jo-Ann</a>
         </p>
-        <h1>Me</h1>
+        <h3>Me</h3>
         <div>
           <p>
             I am a software developer at{" "}
@@ -29,7 +29,7 @@ class About extends Component {
           <p>My email address is mike dot goldin at consensys.net</p>
         </div>
         <div>
-          <h1>Videos</h1>
+          <h3>Videos</h3>
         </div>
         <div>
           <iframe
