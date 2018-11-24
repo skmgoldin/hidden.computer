@@ -45,21 +45,6 @@ class Papers extends Component {
             </p>
           </div>
         </div>
-        <div>
-          <h1>
-            <a href="https://docs.google.com/document/d/1UKjkGlb60paqqeqdEFWV5DgrPvyvEPwm_VOITW6yQHc/edit?usp=sharing">
-              Token-Curated Registries 1.1
-            </a>
-          </h1>
-          <div>
-            <p>
-              This "small but mighty" update to the original TCR paper added the
-              MINORITY_BLOC_SLASH parameter, which is a lever to mitigate an
-              undesirable behavior called vote splitting that emerged in 1.0
-              TCRs.
-            </p>
-          </div>
-        </div>
       </div>
     );
   }
