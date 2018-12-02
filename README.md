@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is Mike Goldin's personal website, hopefully available at [https://www.hidden.computer](https://hidden.computer). It is a React application bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Deployment is handled behind the scenes in the CI system (Travis CI), and the head of the master branch is continuously deployed at [www.hidden.computer](https://hidden.computer). The site is deployed behind a CDN, and it may take up to 24 hours for deployments to fully propagate through the CDN.
 
 ## Available Scripts
 
