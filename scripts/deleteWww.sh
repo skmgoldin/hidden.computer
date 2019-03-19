@@ -15,9 +15,9 @@ aws cloudformation delete-stack \
   --stack-name $HIDDEN_WWW_SERVICE_STACK_NAME
 while [ $? -eq 0 ]
 do
+  sleep 5
   aws cloudformation describe-stacks \
     --stack-name $HIDDEN_WWW_SERVICE_STACK_NAME
-  sleep 5
 done
 
 echo deleting build stack $HIDDEN_WWW_BUILD_STACK_NAME
