@@ -1,0 +1,129 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  BuildStackName:
+    Type: String
+  ServiceStackName:
+    Type: String
+  UtilityBucket:
+    Type: String
+  AwsRegion:
+    Type: String
+  AwsAccountId:
+    Type: String
+  AppHostedZoneId:
+    Type: String
+
+Resources:
+  CloudFormationProviderRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - cloudformation.amazonaws.com
+          Action: ['sts:AssumeRole']
+      Path: /
+      Policies:
+        - PolicyName: !Sub '${BuildStackName}-cloudformation-provider'
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                - 's3:*'
+                - 'cloudformation:*'
+                - 'cloudfront:*'
+                - 'route53:*'
+              Resource:
+                - !Sub 'arn:aws:s3:::${UtilityBucket}/*'
+                - !Sub 'arn:aws:cloudformation:${AwsRegion}:${AwsAccountId}:stack/${ServiceStackName}'
+                - !Sub 'arn:aws:cloudformation:${AwsRegion}:${AwsAccountId}:stack/${ServiceStackName}/*'
+                - !Sub 'arn:aws:route53:::hostedzone/${AppHostedZoneId}'
+                - !Sub 'arn:aws:route53:::change/*'
+                - !Sub 'arn:aws:cloudfront::${AwsAccountId}:*'
+            - Effect: Allow
+              Action:
+                - 'cloudfront:CreateCloudFrontOriginAccessIdentity'
+                - 'cloudfront:GetCloudFrontOriginAccessIdentity'
+                - 'cloudfront:GetCloudFrontOriginAccessIdentityConfig'
+                - 'cloudfront:DeleteCloudFrontOriginAccessIdentity'
+                - 's3:PutBucketPolicy'
+                - 's3:DeleteBucketPolicy'
+                - 'cloudfront:CreateDistribution'
+                - 'cloudfront:TagResource'
+                - 'cloudfront:GetDistribution'
+                - 'cloudfront:UpdateDistribution'
+                - 'cloudfront:DeleteDistribution'
+              Resource:
+                - '*'
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [codepipeline.amazonaws.com]
+          Action: ['sts:AssumeRole']
+      Path: /
+      Policies:
+        - PolicyName: !Sub '${BuildStackName}-pipeline'
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                - 's3:*'
+                - 'cloudformation:*'
+                - 'cloudfront:*'
+                - 'route53:*'
+                - 'codebuild:*'
+                - 'iam:PassRole'
+              Resource:
+                - !GetAtt CloudFormationProviderRole.Arn
+                - !Sub 'arn:aws:codebuild:${AwsRegion}:${AwsAccountId}:project/${BuildStackName}-build'
+                - !Sub 'arn:aws:s3:::${BuildStackName}-static-assets/*'
+                - !Sub 'arn:aws:s3:::${UtilityBucket}/*'
+                - !Sub 'arn:aws:cloudformation:${AwsRegion}:${AwsAccountId}:stack/${ServiceStackName}'
+                - !Sub 'arn:aws:cloudformation:${AwsRegion}:${AwsAccountId}:stack/${ServiceStackName}/*'
+                - !Sub 'arn:aws:route53:::hostedzone/${AppHostedZoneId}'
+                - !Sub 'arn:aws:cloudfront::${AwsAccountId}:*'
+
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [codebuild.amazonaws.com]
+          Action: ['sts:AssumeRole']
+      Path: /
+      Policies:
+        - PolicyName: !Sub '${BuildStackName}-codebuild'
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                - 's3:*'
+                - 'logs:*'
+                - 'ssm:*'
+              Resource:
+                - !Sub 'arn:aws:ssm:${AwsRegion}:${AwsAccountId}:parameter/*'
+                - !Sub 'arn:aws:s3:::${UtilityBucket}*'
+                - !Sub 'arn:aws:logs:${AwsRegion}:*:*'
+            - Effect: Allow
+              Action:
+                - 'cloudformation:ListExports'
+              Resource:
+                - '*'
+
+Outputs:
+  PipelineRoleArn:
+    Value: !GetAtt PipelineRole.Arn
+  CodeBuildRoleArn:
+    Value: !GetAtt CodeBuildRole.Arn
+  CloudFormationProviderRoleArn:
+    Value: !GetAtt CloudFormationProviderRole.Arn
