@@ -28,6 +28,10 @@ Resources:
       Parameters:
         OriginBucket: !Ref OriginBucket
         OriginDomain: !Ref OriginDomain
+        AppName: !Ref AppName
+        AppTld: !Ref AppTld
+        ServiceName: !Ref ServiceName
+        ServiceEnv: !Ref ServiceEnv
 
   Dns:
     Type: AWS::CloudFormation::Stack

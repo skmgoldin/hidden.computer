@@ -5,12 +5,36 @@ Parameters:
     Type: String
   OriginDomain:
     Type: String
+  AppName:
+    Type: String
+  ServiceName:
+    Type: String
+  ServiceEnv:
+    Type: String
+  AppTld:
+    Type: String
+
+Conditions:
+  IsProd: !Equals [!Ref ServiceEnv, master]
 
 Resources:
   Distribution:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
       DistributionConfig:
+        Aliases:
+          - Fn::If:
+              - IsProd
+              - !Sub '${AppName}.${AppTld}'
+              - !Ref AWS::NoValue
+          - Fn::If:
+              - IsProd
+              - !Sub '${ServiceName}.${AppName}.${AppTld}'
+              - !Ref AWS::NoValue
+          - Fn::If:
+              - IsProd
+              - !Ref AWS::NoValue
+              - !Sub '${ServiceEnv}.${ServiceName}.${AppName}.${AppTld}'
         DefaultCacheBehavior:
           AllowedMethods:
             - 'GET'
