@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  AwsRegion:
+    Type: String
+  ServiceName:
+    Type: String
+  OriginBucket:
+    Type: String
+  OriginDomain:
+    Type: String
+  UtilityBucket:
+    Type: String
+  ServiceEnv:
+    Type: String
+  AppHostedZoneId:
+    Type: String
+  AppName:
+    Type: String
+  AppTld:
+    Type: String
+
+Resources:
+  Distribution:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub 'https://s3.${AwsRegion}.amazonaws.com/${UtilityBucket}/${ServiceName}/${ServiceEnv}/service-infra/Distribution.yaml'
+      Parameters:
+        OriginBucket: !Ref OriginBucket
+        OriginDomain: !Ref OriginDomain
+
+  Dns:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub 'https://s3.${AwsRegion}.amazonaws.com/${UtilityBucket}/${ServiceName}/${ServiceEnv}/service-infra/Dns.yaml'
+      Parameters:
+        AppHostedZoneId: !Ref AppHostedZoneId
+        CloudFrontDomainName: !GetAtt Distribution.Outputs.DomainName
+        AppName: !Ref AppName
+        AppTld: !Ref AppTld
+        ServiceName: !Ref ServiceName
+        ServiceEnv: !Ref ServiceEnv
+
