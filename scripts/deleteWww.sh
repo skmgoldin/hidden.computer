@@ -1,26 +1,32 @@
 #!/bin/bash
 
+. ./scripts/setEnv.sh
+if [ $? -gt 0 ]
+then
+  exit 1
+fi
+
 StaticOutputBucket=$(aws cloudformation list-exports | \
   jq -cj \
     --arg searchValue \
-      $HIDDEN_APP_NAME:$HIDDEN_WWW_SERVICE_NAME:$HIDDEN_ENV:StaticOutputBucketResourceName \
+      $APP_NAME:$SERVICE_NAME:$ENV:StaticOutputBucketResourceName \
     '.[] | .[] | select(contains({Name: $searchValue})) | .Value')
 
 echo $StaticOutputBucket
 aws s3 rm s3://$StaticOutputBucket/ \
   --recursive
 
-echo deleting associated service stack $HIDDEN_WWW_SERVICE_STACK_NAME
+echo deleting associated service stack $SERVICE_STACK_NAME
 aws cloudformation delete-stack \
-  --stack-name $HIDDEN_WWW_SERVICE_STACK_NAME
+  --stack-name $SERVICE_STACK_NAME
 while [ $? -eq 0 ]
 do
   sleep 5
   aws cloudformation describe-stacks \
-    --stack-name $HIDDEN_WWW_SERVICE_STACK_NAME
+    --stack-name $SERVICE_STACK_NAME
 done
 
-echo deleting build stack $HIDDEN_WWW_BUILD_STACK_NAME
+echo deleting build stack $BUILD_STACK_NAME
 aws cloudformation delete-stack \
-  --stack-name $HIDDEN_WWW_BUILD_STACK_NAME
+  --stack-name $BUILD_STACK_NAME
 
