@@ -53,11 +53,14 @@ Resources:
           MaxTTL: 31536000
           MinTTL: 86400
           TargetOriginId: !Ref OriginBucket
-          ViewerProtocolPolicy: 'allow-all'
+          ViewerProtocolPolicy: 'redirect-to-https'
         DefaultRootObject: 'index.html'
         Enabled: true
-        HttpVersion: 'http1.1'
+        HttpVersion: 'http2'
         IPV6Enabled: false
+        ViewerCertificate:
+          AcmCertificateArn: 'arn:aws:acm:us-east-1:054393190750:certificate/6aa09839-daea-4174-8908-cf91546c0e43'
+          SslSupportMethod: sni-only
         Origins:
           - DomainName: !Ref OriginDomain
             Id: !Ref OriginBucket
