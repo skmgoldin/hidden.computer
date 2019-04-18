@@ -61,6 +61,46 @@ class About extends Component {
             allowfullscreen
           />
         </div>
+        <div>
+          <iframe
+            title="How Bitcoin Works... In Russia"
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/bHly695Wfd0"
+            frameborder="0"
+            allowfullscreen
+          />
+        </div>
+        <div>
+          <iframe
+            title="Dapp Digest"
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/xw0DVdzbjo8"
+            frameborder="0"
+            allowfullscreen
+          />
+        </div>
+        <div>
+          <iframe
+            title="Internet Security"
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/n92MRtnN8Vs"
+            frameborder="0"
+            allowfullscreen
+          />
+        </div>
+        <div>
+          <iframe
+            title="Ethereal 2018"
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/9_kvYeWWwUI"
+            frameborder="0"
+            allowfullscreen
+          />
+        </div>
       </div>
     );
   }
