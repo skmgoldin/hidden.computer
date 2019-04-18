@@ -36,7 +36,7 @@ class About extends Component {
             title="Columbia University Graduate School of Architecture, Planning and Preservation talk"
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/nfJ2oCF_JLU?start=1996"
+            src="https://www.youtube-nocookie.com/embed/nfJ2oCF_JLU?start=1996"
             frameborder="0"
             allowfullscreen
           />
@@ -46,7 +46,7 @@ class About extends Component {
             title="Creating a Humanist Blockchain Future podcast"
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/5FdEX5UXxx0"
+            src="https://www.youtube-nocookie.com/embed/5FdEX5UXxx0"
             frameborder="0"
             allowfullscreen
           />
@@ -56,7 +56,7 @@ class About extends Component {
             title="adChain, programming people"
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/26ucqdLZMPw"
+            src="https://www.youtube-nocookie.com/embed/26ucqdLZMPw"
             frameborder="0"
             allowfullscreen
           />
