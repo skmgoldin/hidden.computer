@@ -7,6 +7,7 @@ import Header from "./Header.js";
 import About from "./About.js";
 import Papers from "./Papers.js";
 import Code from "./Code.js";
+import Videos from "./Videos.js";
 
 const Home = () => <div />;
 
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path="/about" component={About} />
             <Route path="/papers" component={Papers} />
             <Route path="/code" component={Code} />
+            <Route path="/videos" component={Videos} />
             <Route />
           </Switch>
         </div>
