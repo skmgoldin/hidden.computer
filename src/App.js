@@ -1,7 +1,7 @@
 import "./App.css";
 
 import React, { Component } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 import Header from "./Header.js";
 import About from "./About.js";
@@ -17,14 +17,14 @@ class App extends Component {
       <Router>
         <div>
           <Header />
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/about" component={About} />
-            <Route path="/papers" component={Papers} />
-            <Route path="/code" component={Code} />
-            <Route path="/videos" component={Videos} />
+          <Routes>
+            <Route path="/" element={<Home />} exact />
+            <Route path="/about" element={<About />} />
+            <Route path="/papers" element={<Papers />} />
+            <Route path="/code" element={<Code />} />
+            <Route path="/videos" element={<Videos />} />
             <Route />
-          </Switch>
+          </Routes>
         </div>
       </Router>
     );
