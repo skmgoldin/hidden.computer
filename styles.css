@@ -92,6 +92,40 @@ section h3 {
   margin: 1.5rem 0 0.5rem;
 }
 
+.blog-intro {
+  line-height: 1.6;
+  margin: 0 0 2rem;
+  max-width: 36rem;
+}
+
+.post-header {
+  border-bottom: 1px solid #333333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.post-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.post-meta {
+  color: #9c9c96;
+  font-size: 0.875rem;
+  margin: 0.25rem 0 1rem;
+}
+
+.post-summary {
+  border-top: 1px solid #333333;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.post-summary:first-of-type {
+  border-top: none;
+  margin-top: 1.5rem;
+  padding-top: 0;
+}
+
 p {
   line-height: 1.6;
   margin: 0.5rem 0;

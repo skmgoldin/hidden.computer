@@ -35,7 +35,8 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir -p dist/public
-          cp index.html papers.html videos.html about.html styles.css dist/
+          cp index.html papers.html videos.html blog.html about.html styles.css dist/
+          cp -R blog dist/
           cp -R public/. dist/public/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

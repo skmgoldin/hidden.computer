@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The best thing I learned this year · hidden.computer</title>
+    <link rel="icon" href="../public/favicon.ico">
+    <link rel="apple-touch-icon" href="../public/apple-touch-icon.png">
+    <link rel="manifest" href="../public/site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>$ Mike Goldin</h1>
+      <h2>software developer in New York City</h2>
+      <nav class="site-nav">
+        <a class="nav-link" href="../index.html">Code</a>
+        <a class="nav-link" href="../papers.html">Papers</a>
+        <a class="nav-link" href="../videos.html">Videos</a>
+        <a class="nav-link active" href="../blog.html" aria-current="page">Blog</a>
+        <a class="nav-link" href="../about.html">About</a>
+      </nav>
+    </header>
+    <main>
+      <article aria-labelledby="best-thing-heading">
+        <header class="post-header">
+          <h2 id="best-thing-heading">The Best Thing I've Learned in Programming This Year</h2>
+          <p class="post-meta">
+            <time datetime="2025-10-24">October 24, 2025</time>
+          </p>
+        </header>
+        <p>
+          I am ecstatic. Elated. Over the moon. Positively glowing. I've learned something that
+          makes me happy and turns a previously dreadful task into an absolute joy and a
+          satisfying one at that. I am going to share this joyful knowledge with you. Are you
+          ready to learn about provisioning TLS certificates for internal networks using split
+          horizon DNS, ACME, and Caddy?
+        </p>
+        <h3>The Bad Old Days</h3>
+        <p>
+          You need to use HTTPS everywhere. That's what they say. And you know what? They're
+          right. Even in 2025 many do practice the mullet model of network security
+          (TLS in the front, cleartext in the back, baby!). And some like me have labored in cursed
+          darkness to right the entropic wrongs of expedience and secure internal VPC
+          communications. The problem? It was always a huge pain in the ass. Typically I'd do
+          something like this (kill me):
+        </p>
+        <ul>
+          <li>AWS Private Certificate Authority (short-lived mode because I'm a masochist)</li>
+          <li>Init container on internal VPC service that fetches a certificate from the PCA</li>
+          <li>Sidecar container to refresh the certificate periodically</li>
+          <li>
+            Tangled web of bullshit to distribute the PCA root cert to all the systems which need
+            to call the service with the PCA TLS cert so that they can trust it
+          </li>
+        </ul>
+        <p>
+          God it was a pain. Such a fucking pain. Every time, the pain. Until...
+        </p>
+        <h3>The Better Way</h3>
+        <p>
+          ChatGPT taught me this. How had I never learned this before? They should teach this to
+          first graders.
+        </p>
+        <p>
+          I'm a boomer and I habitually use nginx as a reverse proxy, but I'd been hearing for a
+          while about this new thing called Caddy which touts as a feature automagic provision of
+          HTTPS certificates using the ACME protocol. I started playing with it and was impressed
+          that even locally it could provision a certificate using a local private CA, install
+          that CA root cert to my keychain, and give me a TLS-enabled reverse proxy on
+          localhost... Overkill even for me, but neat! They really commit to the bit! I like
+          that!
+        </p>
+        <p>
+          I started wondering if I could use Caddy to automagically provision TLS certs to my
+          internal VPC services. The first concrete wall I ran into was that the AWS PCA doesn't
+          speak ACME. But I'm happy it doesn't, because if I'd gone down that route I would have
+          had easier certificate provisioning but still would have had to suffer the hell of root
+          cert distribution. So I started talking with chatGPT and it turned me onto some wild
+          shit I'd never heard of before: split horizon DNS.
+        </p>
+        <p>
+          Okay, think about this. You're in your VPC and you have VPC local DNS resolution. If
+          you try to provision an ACME cert using DNS-01 you'll fail because your VPC DNS isn't
+          accessible to the public Internet, so the certificate issuer can't read your challenge
+          response. Fail! Okay, but what about this...
+        </p>
+        <p>
+          Your VPC DNS resolution happens in private DNS zones. But you can have public zones
+          with the same names as your private zones. So, say you have for example foo.net as a
+          registered domain with a public zone. You want to run an VPC service called svc.foo.net
+          and provision TLS for it without leaking the IP addresses of your VPC instances. So
+          what you do is provision two zones: a private svc.foo.net and a public svc.foo.net. Put
+          an NS record in foo.net resolving svc.foo.net to the nameservers of your svc.foo.net
+          public zone. Now that public zone is addressable by the public Internet. It's still
+          empty though!
+        </p>
+        <p>
+          Okay, so now you provision your internal service. You use caddy as a local reverse
+          proxy on the same instance as your service, running in this example on port 8001. Your
+          Caddyfile can be as simple as this:
+        </p>
+        <pre><code>{
+  acme_ca https://acme-v02.api.letsencrypt.org/directory
+}
+
+svc.foo.net {
+  tls {
+    dns route53 {
+      max_retries 10
+    }
+    resolvers 1.1.1.1 8.8.8.8
+  }
+  reverse_proxy http://127.0.0.1:8001
+}
+</code></pre>
+        <p>
+          When Caddy boots up it's going to attempt a DNS-01 challenge for svc.foo.net, placing
+          the challenge response in the public zone you setup earlier. The cert issuer can see
+          this record, and you complete the challenge! You have a cert! And you can still use
+          your private zone for VPC name resolution of the service, so you don't leak internal IP
+          addresses! And you don't need to distribute the CA root cert because your cert is from
+          a public CA!!!!! OMG!
+        </p>
+        <p>
+          There's a few finicky things: use your CA's staging environment while you're getting
+          this working to start, since you'll fail a bunch and might hit rate limits. Use an EFS
+          drive or something to persist certs across deployments so you don't need to request a
+          new one every time you roll out a service update, since you can get rate limited there
+          too. And if you're an AWS chud like me you'll need to build your own Caddy image with
+          xcaddy to install the route53 DNS challenge plugin. But whatever, this is all VERY
+          tractable and easy.
+        </p>
+        <p>
+          NOW I DON'T NEED TO WRITE SIDECAR CONTAINERS, DISTRIBUTE PCA ROOT CERTS, OR PAY $50 A
+          MONTH FOR A PCA! OH MY GOD! I'M SO HAPPY!
+        </p>
+        <p>
+          <a href="../blog.html">← Back to Blog</a>
+        </p>
+      </article>
+    </main>
+  </body>
+</html>
