@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hidden.computer</title>
+    <link rel="icon" href="public/favicon.ico">
+    <link rel="apple-touch-icon" href="public/apple-touch-icon.png">
+    <link rel="manifest" href="public/site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>$ Mike Goldin</h1>
+      <h2>software developer in New York City</h2>
+      <nav class="site-nav">
+        <a class="nav-link active" href="index.html" aria-current="page">Code</a>
+        <a class="nav-link" href="papers.html">Papers</a>
+        <a class="nav-link" href="videos.html">Videos</a>
+        <a class="nav-link" href="about.html">About</a>
+      </nav>
+    </header>
+    <main>
+      <section aria-labelledby="code-heading">
+        <h2 id="code-heading">Code</h2>
+        <article>
+          <h3><a href="http://www.github.com/skmgoldin/tcr">tcr</a></h3>
+          <p>
+            A string-keyed token-curated registry. This repo will track
+            developments in the Token-Curated Registries paper series until 2.0
+            TCRs. Originally developed for the AdChain project by ConsenSys
+            interns working under my direction, this is now the canonical
+            implementation of a generic token-curated registry, and is actively
+            developed.
+          </p>
+        </article>
+        <article>
+          <h3>
+            <a href="http://www.github.com/consensys/plcrvoting">PLCRVoting</a>
+          </h3>
+          <p>
+            Partial-lock commit/reveal (PLCR) voting was originally described by
+            the Colony project in 2016, but not implemented until 2017 by
+            ConsenSys interns working under my direction. Most of the smart
+            contract code and extremely high-quality data structures work was
+            done by Yorke Rhodes and Cem Ozer. All I can really claim here are
+            contributions to the test suite and deployment pipeline. Still, this
+            is one of my proudest projects.
+          </p>
+        </article>
+        <article>
+          <h3>
+            <a href="http://www.github.com/skmgoldin/simple-token-sale">
+              simple-token-sale
+            </a>
+          </h3>
+          <p>
+            This is a simple fixed-price, finite-supply token sale originally
+            developed for the AdChain token launch. It has since been forked by
+            ConsenSys and adopted by projects like Grid+. I like this codebase a
+            lot. In a way it is an artifact of a bygone era, but I actually
+            still use this code all the time for small token sales.
+          </p>
+        </article>
+        <article>
+          <h3>
+            <a href="http://www.github.com/consensys/tokens">Tokens</a>
+          </h3>
+          <p>
+            I became a maintainer of the ConsenSys tokens repo after doing an
+            aggressive refactor for EIP-610 compliance at a time when the repo
+            had been languishing. I've made contributions in the EVM code,
+            deployment pipeline, and extensive contributions in the test suite.
+            I published the tokens repo on EPM without really asking anybody and
+            consequently became what is now one of two mnemonic holders.
+          </p>
+        </article>
+        <article>
+          <h3>
+            <a href="http://www.github.com/skmgoldin/sol-sdll">sol-sdll</a>
+          </h3>
+          <p>
+            Data structures on Ethereum are extremely interesting to me because
+            of how difficult it is to implement them. This repo composes the DLL
+            and AttributeStore libraries from EPM into a sorted DLL.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
