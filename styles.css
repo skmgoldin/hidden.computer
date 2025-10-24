@@ -1,8 +1,11 @@
 body {
   margin: 0;
-  background-color: #000000;
-  color: #e1e1dd;
+  background-color: #050505;
+  color: #f1f1eb;
   font-family: "Courier New", Courier, monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  line-height: 1.75;
 }
 
 a {
@@ -73,9 +76,9 @@ header h2 {
 }
 
 main {
-  max-width: 900px;
+  max-width: 70ch;
   margin: 0 auto;
-  padding: 0 1.5rem 3rem;
+  padding: 0 2rem 4rem;
 }
 
 section {
@@ -127,8 +130,32 @@ section h3 {
 }
 
 p {
-  line-height: 1.6;
-  margin: 0.5rem 0;
+  line-height: 1.75;
+  margin: 1.25rem 0;
+}
+
+ul,
+ol {
+  margin: 1.5rem 0 1.75rem 1.75rem;
+  padding: 0;
+}
+
+li + li {
+  margin-top: 0.75rem;
+}
+
+pre {
+  background-color: #090909;
+  border: 1px solid #333333;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  padding: 1.5rem;
+}
+
+code {
+  color: #67f868;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .intro {
