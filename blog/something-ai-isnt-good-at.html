@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Something AI isn't good at · hidden.computer</title>
+    <link rel="icon" href="../public/favicon.ico">
+    <link rel="apple-touch-icon" href="../public/apple-touch-icon.png">
+    <link rel="manifest" href="../public/site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>$ Mike Goldin</h1>
+      <h2>software developer in New York City</h2>
+      <nav class="site-nav">
+        <a class="nav-link" href="../index.html">Code</a>
+        <a class="nav-link" href="../papers.html">Papers</a>
+        <a class="nav-link" href="../videos.html">Videos</a>
+        <a class="nav-link active" href="../blog.html" aria-current="page">Blog</a>
+        <a class="nav-link" href="../about.html">About</a>
+      </nav>
+    </header>
+    <main>
+      <article aria-labelledby="something-ai-heading">
+        <header class="post-header">
+          <h2 id="something-ai-heading">Something AI isn't good at</h2>
+          <p class="post-meta">
+            <time datetime="2026-02-13">February 13, 2026</time>
+          </p>
+        </header>
+        <p>
+          I hate to say it, but AI writes 100% of my code now. I <em>deleted</em> a code block
+          "manually" the other day and I <em>noticed</em> doing so because it was the first time
+          I'd manually altered code in several weeks. A comma is missing? I burn tokens to fix
+          that. Like an imperious baron I flit my wrist at the servant while looking off into the
+          horizon, disinterestedly: "fix the missing comma." So many more words than just adding
+          the missing comma, but I am <em>above</em> coding now.
+        </p>
+        <p>
+          Like many programmers, due to the rise of AI I find myself spending much more time
+          writing specs than code at this point. As well, and this is unrelated to the rise of AI
+          but rather is due to the current endeavors of the company where I work and my
+          obligations there, I am also writing architecture documents these days. In December I
+          wrote a 5,000 word opus describing an architecture for my company's upcoming
+          &lt;redacted&gt;, and just this morning I wrote a 1,000 word proposal describing how we
+          might alter several systems to better support an upcoming feature.
+        </p>
+        <p>
+          My brain is kind of busted so I write to think. My architecture documents are worked to
+          a standard that an audience can benefit from reading them, but what really motivates me
+          to write them is to build my own understanding of what needs to be solved and how we can
+          best solve it. This is one reason that I never outsource my writing to AI (though
+          <a href="https://rfd.shared.oxide.computer/rfd/0576#_llms_as_writers">there are other reasons, too</a>).
+          But just because I use writing to think does not mean I am above subjecting my thinking
+          to scrutiny before socializing it to my colleagues, and for this reason I have
+          continually made attempts to turn LLMs into a foil for critiquing my architecture
+          documents. And they are not good at this!
+        </p>
+        <p>
+          Proof-reading for grammar and typos? Yes, they're useful (though stylistically
+          questionable). But not for providing critical feedback on architectural documents. And
+          this is not because I'm bad at taking feedback! When my <em>colleagues</em> criticize my
+          work I find they are right the majority of the time! But LLMs seem to be bad both at
+          understanding system architecture documents, and bad at the practice of criticizing them.
+          This is kind of strange because they're pretty good at understanding, proposing, and
+          modifying system specifications, but I have a theory as to why they're good with specs
+          and bad with architecture. We'll come to that in a bit. First, let's just discuss what I
+          mean when I say they're bad at critiquing architecture documents. I'll say as well that
+          the most recent time this happened to me (this morning), I gave codex-5.3-high an
+          architecture document <em>in the repo</em> where all of the changes would occur, and gave
+          it specific guidance on useful parts of the repo to look at in order to test that the
+          architecture document's suppositions were correct. This is a repo that I've used codex
+          in <em>extensively</em> with great success for actual coding. When codex fell over on this
+          task I tried gpt-5.2 high (non-codex) just for fun and it too failed me in a nearly
+          identical way.
+        </p>
+        <p>
+          So what are the issues? One is that my LLMs are often just... Confused. They will
+          indicate problems with an architecture which do not correspond to what the architecture
+          proposes, for example proposing that the architecture would benefit from the addition of
+          a certain lookup table which the architecture document already <em>explicitly and
+          centrally</em> describes. But the LLM will say that the necessary lookup table is missing
+          and propose its addition under a new name. They will also get confused about names of
+          things in general, for example saying that the architecture document over-emphasizes the
+          need to mitigate name-collisions in a certain column and then justifying that statement
+          by going on to describe the properties of a totally different column. They will also
+          ignore instructions in the prompt requesting the review to ignore the fact that specific
+          functionalities described in the architecture do not yet exist, and to focus instead on
+          the conceptual unity of the proposal; sure enough the review will contain a call-out
+          that "the route described to do X is not present, I only found this other route Y...".
+        </p>
+        <p>
+          They're even bad at criticizing work based heavily on existing literature. I wrote a
+          large architecture document for a system that made heavy use of OAuth; I read (really
+          read, carefully, over days and weeks) many RFCs pertaining to the OAuth spec while
+          producing this document. LLMs should really understand OAuth: there's copious open-source
+          text describing the protocol! And yet when I gave my architecture document to the LLM to
+          review, it gave me guidance that <em>cited the RFCs</em> and was <em>wrong</em>. Just
+          blatantly wrong, confused, and harmful. I've lost the transcript for that review at this
+          point, but I was initially quite concerned that <em>I</em> had seriously misunderstood the
+          RFCs. After quite careful re-review of the source material, as well as didactic
+          interactions outside of the review context with LLMs on the specific content of the
+          specifications in question, I was certain that the LLM's review feedback was simply
+          wrong.
+        </p>
+        <p>
+          And to top it all off, there's not even any diamonds in the rough. The LLM gives me all
+          this useless, wrong feedback and there's not even any good stuff to pick out of the mess.
+          The output is fully useless, and if I acted on it mindlessly would be harmful. LLMs are
+          better than me at writing code, but they are absolute garbage at reviewing architectural
+          documents. If I had asked a coworker for an architecture review and they'd given me the
+          feedback that an LLM does, I would honestly think that they were taking drugs during
+          working hours.
+        </p>
+        <p>
+          I mentioned before that it's kind of strange that LLMs are so bad at working with
+          architecture documents when they're so good at working with specs. I do have a theory for
+          this, however. LLMs have gotten good at coding quickly in part because there is a huge
+          corpus of well-labelled training data on how to effect specific changes to software: git
+          commits. Specs are kind of decomposable into atomic changes like that a git commit would
+          affect: "add a column 'region'", "return the project identifier", "implement stubs for
+          the sharing routes", <del>"really really fix it this time"</del>. Conversely, there is
+          probably much less well-labelled training data available on criticizing architectural
+          documents. It's not like such things never happen in public, but the scale of that
+          content must be several orders of magnitude smaller than the number of git commits. As
+          well, it wouldn't be well labelled: what does a specific unit of feedback on a specific
+          architectural proposal "mean" in a sense that would enable an LLM to recognize a
+          semantic/symbolic linkage between it and a useful result in the context of a review?
+        </p>
+        <p>
+          I'm out of my element and only speculating as to why LLMs are bad at reviewing
+          architecture documents, but for now they really are. I'll try again in six months.
+        </p>
+        <p>
+          Now I'm going to use AI to convert this markdown file to HTML so I can publish it and
+          you can read it. Bye!
+        </p>
+        <p>
+          <a href="../blog.html">← Back to Blog</a>
+        </p>
+      </article>
+    </main>
+  </body>
+</html>
