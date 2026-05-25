@@ -18,6 +18,17 @@ a:hover {
   text-decoration: underline;
 }
 
+blockquote {
+  border-left: 2px solid #333333;
+  color: #e1e1dd;
+  margin: 2rem 0;
+  padding: 0 0 0 1.5rem;
+}
+
+blockquote p {
+  margin: 0;
+}
+
 header {
   padding: 2.5rem 1.5rem 1.5rem;
   text-align: center;
@@ -115,6 +126,18 @@ section h3 {
   color: #9c9c96;
   font-size: 0.875rem;
   margin: 0.25rem 0 1rem;
+}
+
+.post-image {
+  margin: 2.5rem 0 1.5rem;
+}
+
+.post-image img {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 36rem;
+  width: 100%;
 }
 
 .post-summary {
