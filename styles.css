@@ -211,7 +211,7 @@ code {
 
 @media (max-width: 600px) {
   header {
-    padding: 1.5rem 1rem 1rem;
+    padding: 1.5rem 1rem 0.5rem;
   }
 
   header h1 {
@@ -228,16 +228,13 @@ code {
 
   .site-nav {
     flex-wrap: nowrap;
-    font-size: clamp(0.875rem, 3.6vw, 1rem);
-    gap: 0.5rem;
-    justify-content: space-between;
-    margin-top: 1rem;
-    max-width: 24rem;
-    width: 100%;
+    font-size: 1rem;
+    gap: clamp(0.75rem, 4vw, 1.5rem);
+    margin-top: 1.25rem;
   }
 
   .nav-link {
-    padding: 0.625rem 0;
+    padding: 0.5rem 0.25rem;
   }
 
   main {
@@ -245,7 +242,7 @@ code {
   }
 
   section {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   .video-grid iframe {
