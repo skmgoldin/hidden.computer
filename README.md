@@ -4,17 +4,18 @@ This repository contains the static files for Mike Goldin's personal site at [ht
 
 ## Working locally
 
-Open any of the HTML files (for example `index.html`, `videos.html`, `blog.html`, or `about.html`) in your browser. No dependencies or dev server are required.
+Open any of the HTML files (for example `index.html`, `videos.html`, `code.html`, or `about.html`) in your browser. No dependencies or dev server are required.
 
 ## Deploying
 
-Upload the repository contents to any static host or CDN. Ensure the `public/` directory ships with the favicons, web manifest, and profile photo used by `index.html`.
+Upload the repository contents to any static host or CDN. Ensure the `public/` directory ships with the favicons, web manifest, and profile photo used by `about.html`.
 
 ## Project structure
 
-- `index.html` – code projects (default landing page).
+- `index.html` – redirects the homepage to `blog.html`.
+- `blog.html` – blog index (default landing location), with posts in `blog/`.
 - `videos.html` – recorded talks and appearances.
-- `blog.html` – blog index, with posts in `blog/`.
+- `code.html` – code projects.
 - `about.html` – bio and contact details.
 - `styles.css` – global styling for the page.
 - `public/` – icons, manifest, and static image assets referenced by the HTML.
